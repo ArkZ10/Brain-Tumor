@@ -45,16 +45,22 @@ Dataset yang digunakan dalam proyek ini adalah dataset gambar MRI otak yang dikl
 
 **Rubrik/Kriteria Tambahan**:
 
-![MRI Brain Tumor](https://drive.google.com/uc?export=view&id=13e7fI0a6wNk0XN9sKVAsFPX-MFhAzqF-)
+<img src="https://drive.google.com/uc?export=view&id=13e7fI0a6wNk0XN9sKVAsFPX-MFhAzqF-" width="400" height="300">
 
-![Visualisasi Data](https://drive.google.com/uc?export=view&id=1rAHd4eU-kjeRLydLwFxV0K-YBo9J7qoG)
+<img src="https://drive.google.com/uc?export=view&id=1rAHd4eU-kjeRLydLwFxV0K-YBo9J7qoG" width="400" height="300">
 
 
 ## Data Preparation
 
 Beberapa tahapan data preparation yang dilakukan antara lain:
-Memisahkan dataset menjadi training dan validation dengan rasio 80:20.
-Melakukan augmentasi data pada training set, seperti rotasi, shear, dan zoom, untuk meningkatkan generalisasi model.
+
+- Pemisahan Dataset: Dataset dipisahkan menjadi training set dan validation set dengan rasio 80:20. Proses ini dilakukan dengan menggunakan fungsi train_test_split dan menyalin gambar dari direktori utama ke folder train_dir dan val_dir sesuai dengan pembagian tersebut.
+
+- Rescaling: Setelah pemisahan, gambar pada kedua set (training dan validation) di-rescale menggunakan ImageDataGenerator dengan faktor 1.0/255.0, yang mengubah nilai piksel gambar dari rentang 0-255 menjadi 0-1, untuk mempercepat pelatihan model dan mengurangi perbedaan skala antar fitur.
+
+- Augmentasi Data: Pada training set, dilakukan augmentasi data untuk meningkatkan variasi dan mencegah overfitting. Augmentasi ini meliputi rotasi gambar dalam rentang 40 derajat, shear (geseran) dengan rentang 0.2, dan zoom dengan rentang 0.2. Proses ini membantu model belajar lebih baik dari data yang lebih bervariasi.
+
+- Persiapan Generator: Kedua set kemudian diproses oleh train_generator dan validation_generator untuk menghasilkan batch gambar berukuran 256x256 piksel dalam mode grayscale. Gambar-gambar ini siap untuk digunakan dalam pelatihan model.
 
 **Rubrik/Kriteria Tambahan**:
 
