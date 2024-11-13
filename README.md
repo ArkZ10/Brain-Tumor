@@ -45,9 +45,9 @@ Dataset yang digunakan dalam proyek ini adalah dataset gambar MRI otak yang dikl
 
 **Rubrik/Kriteria Tambahan**:
 
-<img src="https://drive.google.com/uc?export=view&id=13e7fI0a6wNk0XN9sKVAsFPX-MFhAzqF-" width="400" height="300">
+![download](https://github.com/user-attachments/assets/aa6ddb21-9c72-4afb-a2d2-020c667aa24a)
 
-<img src="https://drive.google.com/uc?export=view&id=1rAHd4eU-kjeRLydLwFxV0K-YBo9J7qoG" width="400" height="300">
+![download](https://github.com/user-attachments/assets/7b000ff8-aaf8-4d5d-b4f5-a0526718b086)
 
 
 ## Data Preparation
