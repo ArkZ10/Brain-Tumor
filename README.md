@@ -44,7 +44,11 @@ Dataset yang digunakan dalam proyek ini adalah dataset gambar MRI otak yang dikl
 - glioma: Gambar MRI yang menunjukkan otak dengan tumor jenis glioma.
 
 **Rubrik/Kriteria Tambahan**:
-GAMBAR VISUALISASI DATA
+
+![MRI Brain Tumor](https://drive.google.com/uc?export=view&id=13e7fI0a6wNk0XN9sKVAsFPX-MFhAzqF-)
+
+![Visualisasi Data](https://drive.google.com/uc?export=view&id=1rAHd4eU-kjeRLydLwFxV0K-YBo9J7qoG)
+
 
 ## Data Preparation
 
@@ -130,9 +134,78 @@ Layer tambahan:
 
 `Model output`: Output dari model ini adalah dua kelas, menggunakan softmax untuk klasifikasi multi-kelas.
 
-Rubrik/Kriteria Tambahan:
+**Rubrik/Kriteria Tambahan**:
 
-Setiap model dianalisis dari segi kelebihan dan kekurangannya. Misalnya, ResNet50 dikenal baik dalam menangani deep architecture tanpa mengalami masalah vanishing gradient.
+#### InceptionV3
+
+Kelebihan:
+- Arsitektur Lebih Dalam dan Kompleks: InceptionV3 memiliki lebih banyak filter dan berbagai ukuran kernel dalam setiap lapisannya (multi-scale), yang memungkinkan model ini menangkap fitur dengan resolusi yang berbeda.
+- Lebih Cepat dalam Beberapa Kasus: Karena berbagai lapisan dan ukuran filter, model ini sering kali lebih cepat dalam mengenali pola.
+- Fleksibilitas pada Ukuran Input: Dapat menangani berbagai ukuran input dengan lebih baik berkat penggunaan teknik inception module.
+
+Kekurangan:
+- Lebih Rumit: Struktur yang lebih kompleks bisa menyebabkan lebih banyak parameter dan meningkatkan waktu pelatihan serta memori yang dibutuhkan.
+- Rentan terhadap Overfitting pada Dataset Kecil: Meskipun cukup efisien, model yang lebih besar membutuhkan dataset yang lebih besar untuk menghindari overfitting, terutama jika digunakan untuk tugas yang memiliki data terbatas.
+
+#### ResNet50
+
+Kelebihan:
+- Residual Connections: ResNet50 menggunakan skip connections atau residual connections, yang memungkinkan pelatihan lebih dalam dengan lebih sedikit risiko gradien hilang (vanishing gradient) dan membuat model lebih stabil dalam pelatihan.
+- Lebih Efisien dalam Hal Kinerja: ResNet lebih efisien dalam memanfaatkan kedalaman model tanpa terlalu banyak parameter dibandingkan dengan model lain yang lebih dalam.
+- Lebih Mudah Dilatih: Karena adanya residual connections, pelatihan lebih stabil bahkan pada model yang lebih dalam.
+
+Kekurangan:
+- Lebih Lambat pada Proses Inferensi: Meskipun sangat efisien dalam pelatihan, model ResNet50 cenderung lebih lambat dalam inferensi dibandingkan dengan beberapa model lain yang lebih ringan.
+- Kurang Fleksibel dalam Ukuran Input: ResNet lebih cocok untuk input dengan ukuran yang sudah diatur, seperti 224 × 224 dan mungkin memerlukan penyesuaian lebih banyak untuk ukuran gambar yang berbeda.
+
+## Evaluation
+Dalam proyek ini, menggunakan tiga metrik evaluasi utama: Akurasi dan recall, untuk menilai kinerja model dalam mendeteksi tumor otak (glioma) dari citra MRI. Dari hasil yang diperoleh, berikut adalah evaluasi kinerja dua model, InceptionV3 dan ResNet50, berdasarkan metrik yang digunakan:
+
+InceptionV3:
+Akurasi: 99%
+Recall: 99%
+
+ResNet50:
+Akurasi: 96%
+Recall: 96%
+
+#### Analisis Hasil:
+
+1. Akurasi:
+
+InceptionV3 menunjukkan akurasi yang sangat tinggi (99%), yang berarti model ini secara keseluruhan melakukan prediksi yang benar hampir di seluruh sampel yang diberikan.
+ResNet50 memiliki akurasi 96%, yang masih sangat baik, meskipun sedikit lebih rendah dibandingkan dengan InceptionV3.
+
+2. Recall:
+   
+InceptionV3 juga menunjukkan recall yang sangat tinggi (99%), yang berarti model ini sangat efektif dalam mendeteksi tumor (mengurangi False Negatives). Artinya, hampir semua tumor yang ada di dataset berhasil terdeteksi dengan baik oleh model ini.
+ResNet50 juga memiliki recall yang sangat baik (96%), meskipun sedikit lebih rendah daripada InceptionV3.
+
+
+Dalam konteks deteksi tumor otak, recall lebih diutamakan daripada akurasi. Hal ini karena recall mengukur kemampuan model untuk mendeteksi tumor yang sebenarnya ada (True Positives). Recall yang tinggi memastikan bahwa model tidak melewatkan tumor yang dapat berdampak buruk jika tidak terdeteksi.
+
+Recall yang lebih tinggi pada InceptionV3 menunjukkan bahwa model ini lebih efektif dalam mendeteksi tumor dibandingkan dengan ResNet50. Meskipun ResNet50 masih menunjukkan kinerja yang sangat baik, InceptionV3 memiliki keunggulan sedikit dalam hal mengidentifikasi semua kasus tumor.
+
+
+
+1. Akurasi:
+
+Akurasi adalah ukuran seberapa sering model membuat prediksi yang benar. Ini dihitung sebagai rasio dari jumlah prediksi yang benar (True Positives dan True Negatives) terhadap total jumlah sampel. Meskipun akurasi berguna, metrik ini bisa menyesatkan jika dataset tidak seimbang (misalnya, jika jumlah gambar sehat jauh lebih banyak daripada gambar tumor). Dalam kasus seperti itu, model bisa mencapai akurasi yang tinggi dengan memprediksi kelas mayoritas dengan benar, meskipun banyak kasus tumor (False Negatives) yang terlewat.
+
+$$
+Akurasi = \frac{\text{True Positives (TP)} + \text{True Negatives (TN)}}{\text{Total Sampel}}
+$$
+
+2. Recall (Tingkat Positif yang Benar):
+
+Recall adalah metrik yang paling penting dalam proyek ini, karena tujuan utamanya adalah meminimalkan False Positives (yaitu, mengklasifikasikan gambar sehat sebagai tumor). Recall mengukur seberapa baik model dalam mengidentifikasi sampel positif (tumor) dan dihitung sebagai rasio True Positives terhadap jumlah True Positives dan False Negatives:
+
+$$
+Recall = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}
+$$
+
+​
+
 
 
  
